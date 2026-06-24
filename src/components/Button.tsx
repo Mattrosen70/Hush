@@ -19,7 +19,7 @@ export const Button: FC<ButtonProps> = ({
   const baseClasses = 'font-medium rounded-full tracking-wide transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed'
 
   const variantClasses = {
-    primary: 'bg-teal-600/70 hover:bg-teal-500/80 text-white border border-teal-400/30',
+    primary: 'bg-teal-500 hover:bg-teal-400 text-white border border-teal-300 shadow-md shadow-teal-900/40',
     secondary: 'bg-slate-700/60 hover:bg-slate-600/70 text-slate-100 border border-white/10',
     outline: 'border border-teal-400/40 text-teal-300 hover:bg-teal-900/30 bg-transparent',
   }
