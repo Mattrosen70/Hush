@@ -22,20 +22,27 @@ export const SelectionCard: FC<SelectionCardProps> = ({
     <Card
       isSelected={isSelected}
       onClick={() => onSelect(id)}
-      className="cursor-pointer hover:shadow-lg"
+      className="cursor-pointer"
     >
       <div className="flex items-start gap-3">
-        {icon && <div className="text-2xl">{icon}</div>}
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900 dark:text-white">{title}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{description}</p>
+        {icon && <div className="text-xl mt-0.5">{icon}</div>}
+        <div className="flex-1 min-w-0">
+          <h3 className="font-medium text-white text-sm">{title}</h3>
+          <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{description}</p>
         </div>
-        <input
-          type="checkbox"
-          checked={isSelected}
-          onChange={() => onSelect(id)}
-          className="mt-1 w-5 h-5 cursor-pointer"
-        />
+        <div className={`
+          mt-0.5 w-4 h-4 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-200
+          ${isSelected
+            ? 'bg-teal-400/80 border-teal-400'
+            : 'border-white/25 bg-transparent'
+          }
+        `}>
+          {isSelected && (
+            <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 12 12">
+              <path d="M10 3L5 8.5 2 5.5" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </div>
       </div>
     </Card>
   )

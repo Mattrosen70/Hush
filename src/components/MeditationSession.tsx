@@ -29,7 +29,7 @@ export const MeditationSession: FC<MeditationSessionProps> = ({ onComplete }) =>
   }, [play])
 
   if (!currentSession) {
-    return <div className="text-white text-center">No active session</div>
+    return <div className="text-slate-400 text-center">No active session</div>
   }
 
   const script = getScriptById(currentSession.scriptId)
@@ -51,44 +51,59 @@ export const MeditationSession: FC<MeditationSessionProps> = ({ onComplete }) =>
 
   const backgroundStyle = image?.colorGradient
     ? { backgroundImage: image.colorGradient }
-    : { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
+    : { background: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)' }
+
+  const circumference = 2 * Math.PI * 88
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center p-4 transition-all duration-500"
+      className="min-h-screen flex flex-col items-center justify-center p-6 transition-all duration-700"
       style={backgroundStyle}
     >
-      <div className="max-w-2xl w-full space-y-8">
+      <div className="max-w-lg w-full space-y-10 fade-in">
         {/* Title */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-2">{script?.title}</h1>
-          <p className="text-gray-100">{image?.title}</p>
+          <p className="text-white/50 text-xs tracking-[0.35em] uppercase mb-3">✦ in session ✦</p>
+          <h1 className="text-3xl font-light text-white tracking-wide mb-1">{script?.title}</h1>
+          <p className="text-white/50 text-sm tracking-wide">{image?.title}</p>
         </div>
 
-        {/* Progress Circle */}
+        {/* Breathing Circle */}
         <div className="flex justify-center">
-          <div className="relative w-48 h-48 rounded-full bg-white bg-opacity-10 backdrop-blur-md flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-5xl font-bold text-white">
+          <div className={`relative w-52 h-52 rounded-full flex items-center justify-center breathe ${isPlaying ? 'breathe' : ''}`}
+            style={{ background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.15)' }}
+          >
+            <div className="text-center z-10">
+              <p className="text-5xl font-light text-white tabular-nums">
                 {Math.floor(elapsedTime / 60)}:{String(Math.floor(elapsedTime % 60)).padStart(2, '0')}
               </p>
-              <p className="text-gray-200 text-sm mt-2">
-                {currentSession.duration} minutes
+              <p className="text-white/50 text-xs tracking-widest uppercase mt-2">
+                {currentSession.duration} min
               </p>
             </div>
             <svg
               className="absolute w-full h-full transform -rotate-90"
-              style={{
-                strokeDasharray: `${(progressPercent / 100) * (2 * Math.PI * 96)} ${2 * Math.PI * 96}`,
-              }}
+              viewBox="0 0 208 208"
             >
               <circle
-                cx="96"
-                cy="96"
-                r="96"
+                cx="104"
+                cy="104"
+                r="88"
                 fill="none"
-                stroke="rgba(255, 255, 255, 0.3)"
-                strokeWidth="4"
+                stroke="rgba(255,255,255,0.1)"
+                strokeWidth="2"
+              />
+              <circle
+                cx="104"
+                cy="104"
+                r="88"
+                fill="none"
+                stroke="rgba(94,234,212,0.6)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={circumference - (progressPercent / 100) * circumference}
+                className="transition-all duration-300"
               />
             </svg>
           </div>
@@ -113,13 +128,14 @@ export const MeditationSession: FC<MeditationSessionProps> = ({ onComplete }) =>
 
         {/* Completion Message */}
         {sessionCompleted && (
-          <div className="bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Great Job! 🎉</h2>
-            <p className="text-gray-100 mb-6">
-              You completed your {currentSession.duration}-minute meditation session.
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 text-center slide-up">
+            <p className="text-white/60 text-xs tracking-[0.35em] uppercase mb-3">✦ complete ✦</p>
+            <h2 className="text-2xl font-light text-white mb-3">Well done</h2>
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
+              You completed your {currentSession.duration}-minute session. Take a moment to rest in stillness.
             </p>
             <Button variant="primary" size="lg" onClick={handleComplete} fullWidth>
-              Back to Home
+              Return Home
             </Button>
           </div>
         )}

@@ -17,20 +17,22 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 
   return (
     <div>
-      {label && <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{label}</p>}
-      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+      {label && (
+        <p className="text-xs font-medium text-slate-400 tracking-widest uppercase mb-2">{label}</p>
+      )}
+      <div className="w-full bg-white/[0.08] rounded-full h-1 overflow-hidden">
         <div
           className={`
-            h-full bg-gradient-to-r from-blue-400 to-purple-500
-            transition-all duration-300 ease-out
+            h-full bg-gradient-to-r from-teal-500/80 to-teal-300/80
+            transition-all duration-500 ease-out rounded-full
             ${striped ? 'bg-stripe' : ''}
             ${animated ? 'animate-pulse' : ''}
           `}
           style={{ width: `${clampedProgress}%` }}
         />
       </div>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
-        {clampedProgress}%
+      <p className="text-xs text-slate-600 mt-1 text-right">
+        {Math.round(clampedProgress)}%
       </p>
     </div>
   )

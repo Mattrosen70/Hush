@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import useStore from '../store/meditationStore'
 import { Statistics } from './Statistics'
 import { SessionHistory } from './SessionHistory'
@@ -10,7 +10,6 @@ interface HomeProps {
 
 export const Home: FC<HomeProps> = ({ onStartMeditation }) => {
   const sessionHistory = useStore((state) => state.sessionHistory)
-  const preferences = useStore((state) => state.preferences)
 
   // Calculate statistics
   const totalSessions = sessionHistory.length
@@ -36,16 +35,17 @@ export const Home: FC<HomeProps> = ({ onStartMeditation }) => {
   }))
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-4 md:p-8">
+    <div className="min-h-screen p-6 md:p-10 fade-in">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-2">Hush</h1>
-          <p className="text-gray-100 text-lg">Your personal meditation companion</p>
+        <div className="text-center mb-14 pt-10">
+          <p className="text-teal-400/60 text-xs tracking-[0.35em] uppercase mb-4">✦ mindfulness ✦</p>
+          <h1 className="text-6xl font-light text-white mb-3 tracking-wider">Hush</h1>
+          <p className="text-slate-400 text-base tracking-wide">your personal meditation companion</p>
         </div>
 
         {/* Statistics */}
-        <div className="mb-12">
+        <div className="mb-10">
           <Statistics
             totalSessions={totalSessions}
             totalMinutes={totalMinutes}
@@ -55,30 +55,32 @@ export const Home: FC<HomeProps> = ({ onStartMeditation }) => {
         </div>
 
         {/* Start Button */}
-        <div className="mb-12">
+        <div className="mb-10">
           <Button
             variant="primary"
             size="lg"
             fullWidth
             onClick={onStartMeditation}
-            className="text-lg py-4"
+            className="text-base py-4 tracking-wide"
           >
-            Start Meditation
+            Begin Session
           </Button>
         </div>
 
         {/* Recent Sessions */}
-        <div className="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Recent Sessions</h2>
+        <div className="bg-white/[0.05] border border-white/10 backdrop-blur-sm rounded-2xl p-6">
+          <h2 className="text-lg font-light text-slate-300 tracking-widest uppercase mb-6">
+            Recent Sessions
+          </h2>
           <SessionHistory sessions={recentSessions} />
         </div>
 
-        {/* Quick Stats Info */}
+        {/* Welcome message for new users */}
         {totalSessions === 0 && (
-          <div className="mt-8 bg-white bg-opacity-20 backdrop-blur-md rounded-lg p-6 text-white text-center">
-            <p className="text-lg mb-4">Welcome to Hush! 🧘</p>
-            <p className="text-gray-100">
-              Begin your meditation journey today. Every session brings you closer to peace and mindfulness.
+          <div className="mt-8 bg-teal-900/20 border border-teal-400/20 rounded-2xl p-6 text-center slide-up">
+            <p className="text-teal-300 text-lg font-light mb-3">Welcome to Hush 🌿</p>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Begin your meditation journey today. Every session brings you closer to peace and stillness.
             </p>
           </div>
         )}

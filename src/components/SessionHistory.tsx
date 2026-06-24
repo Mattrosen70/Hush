@@ -27,30 +27,31 @@ export const SessionHistory: FC<SessionHistoryProps> = ({ sessions, onRetry }) =
 
   if (sessions.length === 0) {
     return (
-      <Card>
-        <div className="text-center py-8">
-          <p className="text-gray-600 dark:text-gray-400">No meditation sessions yet</p>
-          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-            Start your first meditation to build your practice
-          </p>
-        </div>
-      </Card>
+      <div className="text-center py-10">
+        <p className="text-slate-500 text-sm">No sessions yet</p>
+        <p className="text-slate-600 text-xs mt-2">
+          Begin your practice to see your history here
+        </p>
+      </div>
     )
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {sessions.map((session) => (
         <Card key={session.id}>
           <div className="flex items-center justify-between">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="font-semibold text-gray-900 dark:text-white">{session.scriptTitle}</h3>
-                {session.completed && <span className="text-green-500">✓</span>}
+                <h3 className="font-medium text-white text-sm truncate">{session.scriptTitle}</h3>
+                {session.completed && (
+                  <span className="text-teal-400 text-xs">✓</span>
+                )}
               </div>
-              <div className="flex gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex gap-3 mt-1 text-xs text-slate-500">
                 <span>{formatDate(session.date)}</span>
-                <span>{session.duration} minutes</span>
+                <span>·</span>
+                <span>{session.duration} min</span>
               </div>
             </div>
             {onRetry && (
