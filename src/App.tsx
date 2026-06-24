@@ -1,11 +1,34 @@
 import { useState } from 'react'
-import './styles/App.css'
-import HomePage from '@pages/HomePage'
+import { Home } from './components/Home'
+import { MeditationSetup } from './components/MeditationSetup'
+import { MeditationSession } from './components/MeditationSession'
+import useStore from './store/meditationStore'
+
+type AppView = 'home' | 'setup' | 'session'
 
 function App() {
+  const [currentView, setCurrentView] = useState<AppView>('home')
+  const currentSession = useStore((state) => state.currentSession)
+
+  const handleStartMeditation = () => {
+    setCurrentView('setup')
+  }
+
+  const handleSetupComplete = () => {
+    setCurrentView('session')
+  }
+
+  const handleSessionComplete = () => {
+    setCurrentView('home')
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900">
-      <HomePage />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {currentView === 'home' && <Home onStartMeditation={handleStartMeditation} />}
+      {currentView === 'setup' && <MeditationSetup onStart={handleSetupComplete} />}
+      {currentView === 'session' && currentSession && (
+        <MeditationSession onComplete={handleSessionComplete} />
+      )}
     </div>
   )
 }
