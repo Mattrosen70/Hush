@@ -33,8 +33,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: List dist
-        run: ls -R dist
+      - name: Debug dist contents
+        run: |
+          echo "---- dist tree ----"
+          ls -R dist
+          echo "---- dist/index.html ----"
+          cat dist/index.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
