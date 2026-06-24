@@ -3,6 +3,7 @@ import { Home } from './components/Home'
 import { MeditationSetup } from './components/MeditationSetup'
 import { MeditationSession } from './components/MeditationSession'
 import useStore from './store/meditationStore'
+import './styles/App.css'
 
 type AppView = 'home' | 'setup' | 'session'
 
@@ -23,7 +24,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900">
       {currentView === 'home' && <Home onStartMeditation={handleStartMeditation} />}
       {currentView === 'setup' && <MeditationSetup onStart={handleSetupComplete} />}
       {currentView === 'session' && currentSession && (

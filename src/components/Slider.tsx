@@ -23,9 +23,11 @@ export const Slider: FC<SliderProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-          {showValue && <span className="text-sm font-semibold text-blue-500">{value}</span>}
+        <div className="flex justify-between items-center mb-3">
+          <label className="text-xs font-medium text-slate-400 tracking-widest uppercase">{label}</label>
+          {showValue && (
+            <span className="text-sm font-light text-teal-300 tabular-nums">{value}</span>
+          )}
         </div>
       )}
       <input
@@ -35,7 +37,7 @@ export const Slider: FC<SliderProps> = ({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+        className="w-full h-1 bg-white/[0.10] rounded-full appearance-none cursor-pointer accent-teal-400"
         {...props}
       />
     </div>

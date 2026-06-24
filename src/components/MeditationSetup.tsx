@@ -38,93 +38,109 @@ export const MeditationSetup: FC<MeditationSetupProps> = ({ onStart }) => {
   }
 
   return (
-    <div className="space-y-8">
-      {/* Script Selection */}
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Choose Your Meditation</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {meditationScripts.map((script) => (
-            <SelectionCard
-              key={script.id}
-              id={script.id}
-              title={script.title}
-              description={script.description}
-              isSelected={selectedScript === script.id}
-              onSelect={setSelectedScript}
-            />
-          ))}
+    <div className="min-h-screen p-6 md:p-10 fade-in">
+      <div className="max-w-4xl mx-auto space-y-10">
+        {/* Page header */}
+        <div className="text-center pt-8 pb-2">
+          <p className="text-teal-400/60 text-xs tracking-[0.35em] uppercase mb-3">✦ prepare ✦</p>
+          <h1 className="text-4xl font-light text-white tracking-wider">Your Session</h1>
         </div>
-      </div>
 
-      {/* Background Sound Selection */}
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Ambient Sound</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {backgroundSounds.map((sound) => (
-            <SelectionCard
-              key={sound.id}
-              id={sound.id}
-              title={sound.title}
-              description={sound.description}
-              isSelected={selectedSound === sound.id}
-              onSelect={setSelectedSound}
-            />
-          ))}
+        {/* Script Selection */}
+        <div>
+          <h2 className="text-xs font-semibold text-slate-400 tracking-[0.3em] uppercase mb-4">
+            Meditation Style
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {meditationScripts.map((script) => (
+              <SelectionCard
+                key={script.id}
+                id={script.id}
+                title={script.title}
+                description={script.description}
+                isSelected={selectedScript === script.id}
+                onSelect={setSelectedScript}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Voice Selection */}
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Voice Guide</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {voices.map((voice) => (
-            <SelectionCard
-              key={voice.id}
-              id={voice.id}
-              title={voice.name}
-              description={`${voice.gender.charAt(0).toUpperCase() + voice.gender.slice(1)} - ${voice.accent}`}
-              isSelected={selectedVoice === voice.id}
-              onSelect={setSelectedVoice}
-            />
-          ))}
+        {/* Background Sound Selection */}
+        <div>
+          <h2 className="text-xs font-semibold text-slate-400 tracking-[0.3em] uppercase mb-4">
+            Ambient Sound
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {backgroundSounds.map((sound) => (
+              <SelectionCard
+                key={sound.id}
+                id={sound.id}
+                title={sound.title}
+                description={sound.description}
+                isSelected={selectedSound === sound.id}
+                onSelect={setSelectedSound}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Background Image Selection */}
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-4">Visual Background</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {backgroundImages.map((image) => (
-            <SelectionCard
-              key={image.id}
-              id={image.id}
-              title={image.title}
-              description={image.description}
-              isSelected={selectedImage === image.id}
-              onSelect={setSelectedImage}
-            />
-          ))}
+        {/* Voice Selection */}
+        <div>
+          <h2 className="text-xs font-semibold text-slate-400 tracking-[0.3em] uppercase mb-4">
+            Voice Guide
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {voices.map((voice) => (
+              <SelectionCard
+                key={voice.id}
+                id={voice.id}
+                title={voice.name}
+                description={`${voice.gender.charAt(0).toUpperCase() + voice.gender.slice(1)} · ${voice.accent}`}
+                isSelected={selectedVoice === voice.id}
+                onSelect={setSelectedVoice}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Duration Selection */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
-        <Slider
-          label="Session Duration (minutes)"
-          value={duration}
-          min={5}
-          max={60}
-          step={5}
-          onChange={setDuration}
-          showValue={true}
-        />
-      </div>
+        {/* Background Image Selection */}
+        <div>
+          <h2 className="text-xs font-semibold text-slate-400 tracking-[0.3em] uppercase mb-4">
+            Visual Scene
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {backgroundImages.map((image) => (
+              <SelectionCard
+                key={image.id}
+                id={image.id}
+                title={image.title}
+                description={image.description}
+                isSelected={selectedImage === image.id}
+                onSelect={setSelectedImage}
+              />
+            ))}
+          </div>
+        </div>
 
-      {/* Start Button */}
-      <div className="flex justify-center">
-        <Button variant="primary" size="lg" onClick={handleStart} fullWidth>
-          Start Meditation
-        </Button>
+        {/* Duration Selection */}
+        <div className="bg-white/[0.05] border border-white/10 backdrop-blur-sm rounded-2xl p-6">
+          <Slider
+            label="Session Duration (minutes)"
+            value={duration}
+            min={5}
+            max={60}
+            step={5}
+            onChange={setDuration}
+            showValue={true}
+          />
+        </div>
+
+        {/* Start Button */}
+        <div className="flex justify-center pb-10">
+          <Button variant="primary" size="lg" onClick={handleStart} fullWidth>
+            Begin Meditation
+          </Button>
+        </div>
       </div>
     </div>
   )
